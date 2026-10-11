@@ -19,6 +19,15 @@ pip install yt-dlp openai-whisper torch funasr
 # 确保 ffmpeg 已安装（winget install ffmpeg）
 ```
 
+还需要一个 API Key：**任意一家大模型平台**都行（Kimi、DeepSeek、通义、智谱……只要是 OpenAI 兼容接口）。
+各家现在基本都不送免费额度了，得先充值。以 Kimi 为例：
+
+```bash
+export DEEPSEEK_API_KEY="你的key"                        # 变量名只是个名字，填哪家的都行
+export DEEPSEEK_API_BASE="https://api.moonshot.cn/v1"    # 非 DeepSeek 平台才需要
+export DEEPSEEK_MODEL="kimi-k2"                          # 非 DeepSeek 平台才需要
+```
+
 ## 1. 跑 link-distill
 
 ```bash
@@ -28,7 +37,7 @@ python link-distill.py "<用户给的链接>"
 会自动：
 - 下载音频 → FunASR/Whisper 转文字
 - （可选 --vision）场景检测 + 视觉分析
-- DeepSeek AI 结构化蒸馏
+- 大模型结构化蒸馏（DeepSeek / Kimi / 任意 OpenAI 兼容服务）
 
 输出保存到 `last_analysis.json`，同时打印到终端。
 
@@ -63,5 +72,5 @@ python link-distill.py "<用户给的链接>"
 ## 原理
 
 ```
-链接 → yt-dlp（1200+站）→ 音频 → FunASR/Whisper → DeepSeek AI → 结构化分析 → 你俩聊
+链接 → yt-dlp（1200+站）→ 音频 → FunASR/Whisper → 大模型（DeepSeek/Kimi 等）→ 结构化分析 → 你俩聊
 ```

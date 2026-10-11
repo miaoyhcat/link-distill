@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """扔链接 → 蒸馏（语音+画面）→ 入库
 零配置默认走 DeepSeek 官方（DEEPSEEK_API_KEY 环境变量），
-也支持配置覆盖（api_base/model），适配任意 OpenAI 兼容服务。
+也支持配置覆盖（api_base/model），适配任意 OpenAI 兼容服务——
+Kimi、通义、智谱等都可以，填上各自的 api_base 和 model 即可。
 """
 import argparse, base64, json, os, re, shutil, subprocess, sys, time, urllib.request
 from pathlib import Path
@@ -383,7 +384,8 @@ def distill(text, vision=None):
         api_base = normalize_api_base(setting("api_base")) or DEFAULT_API_BASE
         model = setting("model") or DEFAULT_MODEL
         if not api_key:
-            print("  API失败: 未设置 DEEPSEEK_API_KEY（可注册 deepseek.com 免费获取）", flush=True)
+            print("  API失败: 未设置 DEEPSEEK_API_KEY"
+                  "（任意大模型平台都行，如 Kimi / DeepSeek，需自行充值）", flush=True)
             return text
         d = json.dumps({"model":model,"messages":[{"role":"user","content":p}],"max_tokens":8192}).encode()
         r = urllib.request.Request(f"{api_base}/chat/completions",data=d,headers={"Authorization":f"Bearer {api_key}","Content-Type":"application/json"})

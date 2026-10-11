@@ -8,7 +8,10 @@
 
 ## 快速开始（2 分钟）
 
-1. 注册 [DeepSeek](https://platform.deepseek.com)（送免费额度），复制 API Key
+1. **注册任意一家大模型平台**，复制 API Key。[Kimi](https://platform.moonshot.cn/)、[DeepSeek](https://platform.deepseek.com)、通义、智谱……只要是 OpenAI 兼容接口都行。
+
+   > 各家现在基本都不送免费额度了，得先充一点。按量计费，用多少花多少，个人使用成本很低。
+
 2. 设置环境变量：
 
 ```bash
@@ -17,6 +20,16 @@ setx DEEPSEEK_API_KEY "你的key"
 # macOS / Linux
 export DEEPSEEK_API_KEY="你的key"
 ```
+
+用 Kimi 这类非 DeepSeek 平台时，再补上接口地址和模型名：
+
+```bash
+# 以 Kimi 为例
+setx DEEPSEEK_API_BASE "https://api.moonshot.cn/v1"
+setx DEEPSEEK_MODEL "kimi-k2"
+```
+
+> 变量名统一叫 `DEEPSEEK_*`，但它只是个名字而已，填哪家的 Key 都行。
 
 3. 扔链接：
 
@@ -48,7 +61,7 @@ python gist.py "https://..." --api-base "https://中转站/v1" --api-key "key" -
 
 `命令行参数 / 配置文件` > `环境变量（DEEPSEEK_API_KEY / DEEPSEEK_API_BASE / DEEPSEEK_MODEL）` > `内置默认（DeepSeek 官方 deepseek-chat）`
 
-零配置用户直接用官方默认；有自己 API 的用户覆盖即可。
+零配置用户直接用官方默认；用 Kimi 等其它平台的，把 `DEEPSEEK_API_BASE` 和 `DEEPSEEK_MODEL` 一起覆盖即可（见[快速开始](#快速开始2-分钟)）。
 
 ## 演示
 
@@ -105,7 +118,7 @@ link-distill：Claude Code、Codex、ZCode、OpenClaw、Cursor……全兼容
 | 画面分析 | ✅ 可选 | ✅ | ❌ | ❌ |
 | 结构化蒸馏 | ✅ 5 维度 | ⚠️ 笔记 | ❌ | ✅ RIA-TV++ |
 | 抖音图文 | ✅ | ❌ | ❌ | ❌ |
-| AI 纠错 | ✅ DeepSeek | ❌ | ⚠️ 基础 | ❌ |
+| AI 纠错 | ✅ 任意大模型 | ❌ | ⚠️ 基础 | ❌ |
 | 场景检测 | ✅ HSV | ❌ | ❌ | ❌ |
 | 安装复杂度 | pip 搞定 | Docker 全家桶 | pip | skill 文件 |
 | CLI 支持 | ✅ | ❌ Web/桌面 | ✅ | ❌ |
@@ -122,7 +135,7 @@ link-distill：Claude Code、Codex、ZCode、OpenClaw、Cursor……全兼容
    ↓
 👁️ HSV 场景检测 + 视觉分析（--vision）
    ↓
-🧠 DeepSeek AI 结构化蒸馏
+🧠 大模型结构化蒸馏（DeepSeek / Kimi / 任意 OpenAI 兼容服务）
    ↓
 💬 你和 AI 一起聊、一起学
 ```
